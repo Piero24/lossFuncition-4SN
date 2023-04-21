@@ -19,9 +19,7 @@ from loss import dice_bce_loss, log_cosh_dice_loss
 from loss import focal_loss, tversky_loss
 from loss import focal_tversky_loss, combo_loss
 from loss import structure_loss
-
-# Los imported later
-# from lossTest import bce_loss
+from lossTest import RWLoss
 
 
 
@@ -172,11 +170,14 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             P1, P2, P3, P4= model(images)
 
             # ---- loss function ----
-            loss_P1 = structure_loss(P1, gts)
-            loss_P2 = structure_loss(P2, gts)
-            loss_P3 = structure_loss(P3, gts)
-            loss_P4 = structure_loss(P4, gts)
-            loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
+            # loss_P1 = structure_loss(P1, gts)
+            # loss_P2 = structure_loss(P2, gts)
+            # loss_P3 = structure_loss(P3, gts)
+            # loss_P4 = structure_loss(P4, gts)
+            # loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
+            # Creazione dell'istanza della classe RWLoss
+            rw_loss = RWLoss()
+            loss = rw_loss.forward(P1, gts)
             
             # ---- backward ----
             loss.backward()
@@ -184,8 +185,8 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             optimizer.step()
             
             # ---- recording loss ----
-            if rate == 1:
-                loss_P2_record.update(loss_P4.data, opt.batchsize)
+            #if rate == 1:
+                #loss_P2_record.update(loss_P4.data, opt.batchsize)
         
         # ---- train visualization ----
         if i % 20 == 0 or i == total_step:
