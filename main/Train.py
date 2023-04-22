@@ -3,10 +3,6 @@ import logging
 import argparse
 from datetime import datetime
 
-import os
-os.environ['TORCH_USE_CUDA_DSA'] = '1'
-
-
 import torch
 import numpy as np
 from torch.autograd import Variable
@@ -26,8 +22,6 @@ from loss import structure_loss
 from lossTest import RWLoss
 # Folder path
 import folder_path
-
-
 
 
 def test(model: torch.nn.Module, path: str, dataset: str) -> float:
@@ -288,7 +282,7 @@ if __name__ == '__main__':
     
     # default=8
     parser.add_argument('--batchsize', type=int,
-                        default=2, help='training batch size')
+                        default=3, help='training batch size')
     
     #default=352
     parser.add_argument('--trainsize', type=int,
