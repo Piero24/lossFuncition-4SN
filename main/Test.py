@@ -11,7 +11,8 @@ import torch.nn.functional as F
 
 from lib.pvt import HSNet
 from utils.dataloader import test_dataset
-
+# Folder path
+import folder_path
 
 
 if __name__ == '__main__':
@@ -28,7 +29,7 @@ if __name__ == '__main__':
     for _data_name in ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB']:
 
         ##### put data_path here #####
-        data_path = '//NAS_home/Develop/Coding/Research/HSNet/dataset/TestDataset/{}'.format(_data_name)
+        data_path = folder_path.MY_TEST_FOLDER_PATH + '/{}'.format(_data_name)
         ##### save_path #####
         save_path = './result_map/PolypPVT/{}/'.format(_data_name)
 

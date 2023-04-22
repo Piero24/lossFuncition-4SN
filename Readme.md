@@ -45,7 +45,7 @@ Nella funzione `def train(train_loader, model, optimizer, epoch, test_path)` è 
         from
             test1path = './dataset/TestDataset/'
         to
-            test1path = '//NAS_home/Develop/Coding/Research/HSNet/dataset/TestDataset/'
+            test1path = '../dataset/TestDataset'
     ```
 <br/>
 
@@ -128,7 +128,7 @@ Aggiunto un print alla fine della fase di train per indicare quando ha concluso.
         from
             data_path = '/dataset/TestDataset/{}'.format(_data_name)
         to
-            data_path = '//NAS_home/Develop/Coding/Research/HSNet/dataset/TestDataset/{}'.format(_data_name)
+            data_path = '../dataset/TestDataset/{}'.format(_data_name)
         
     ```
 <br/>
@@ -175,7 +175,7 @@ Ho chiesto chiarimenti sul da farsi e bisogna implementare questa loss [Region-w
 
 <br/>
 
-* Aggiunto la funzione ``rw_loss.forward(P1, gts)`` al file ``Train.py`` e commentato le altre funzioni non necessarie () ho anche commentato la parte di recording loss:
+* Aggiunto la funzione ``rw_loss.forward(P1, gts)`` al file ``Train.py`` e commentato le altre funzioni non necessarie. Ho inoltre commentato **MOMENTANEAMENTE** altre parti come si può vedere per evitare ulteriori e concentrarmi sull'errore principale sottostante che bisogna risolvere:
 
     ```python
         from
@@ -185,6 +185,11 @@ Ho chiesto chiarimenti sul da farsi e bisogna implementare questa loss [Region-w
             loss_P3 = structure_loss(P3, gts)
             loss_P4 = structure_loss(P4, gts)
             loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
+            
+            # ---- backward ----
+            loss.backward()
+            clip_gradient(optimizer, opt.clip)
+            optimizer.step()
             
             # ---- recording loss ----
             if rate == 1:
@@ -199,19 +204,123 @@ Ho chiesto chiarimenti sul da farsi e bisogna implementare questa loss [Region-w
             # loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
             # Creazione dell'istanza della classe RWLoss
             rw_loss = RWLoss()
-            loss = rw_loss.forward(P1, gts)
+            loss = rw_loss.forward(gts, P1)
+            
+            # ---- backward ----
+            # loss.backward()
+            clip_gradient(optimizer, opt.clip)
+            optimizer.step()
             
             # ---- recording loss ----
-            #if rate == 1:
-            #    loss_P2_record.update(loss_P4.data, opt.batchsize)
+            if rate == 1:
+                #loss_P2_record.update(loss_P4.data, opt.batchsize)
+                loss_P2_record.update(loss.data, opt.batchsize)
         
     ```
 
 <br/>
 
+* Una volta fatto installate le dipendenze andare sul file ``./env/Lib/site-packages/nnunet/__init__.py`` e commentare le seguenti righe di codice altrimenti spaunano ogni 10 secondi dando fastidio e basta:
+
+    ```python
+
+    print("\n\nPlease cite the following paper when using nnUNet:\n\nIsensee, F., Jaeger, P.F., Kohl, S.A.A. et al. "
+        "\"nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation.\" "
+        "Nat Methods (2020). https://doi.org/10.1038/s41592-020-01008-z\n\n")
+    print("If you have questions or suggestions, feel free to open an issue at https://github.com/MIC-DKFZ/nnUNet\n")
+
+    ```
+
+<br/>
+
+* Aggiunto il file ``folder_path.py`` così da non dover cambiare ogni volta nel codice i percorsi in base a dove viene runnato il codice. Basta semplicemente aggiungere le righe nel file e commentare le altre. 
+
+<br/>
+
 * ...
 
+## ERRORE DA RISOLVERE ADESSO
+Questo è l'errore sul quale si sta lavorando al momento:
 
+```sh
+AdamW (
+Parameter Group 0        
+    amsgrad: False       
+    betas: (0.9, 0.999)  
+    capturable: False    
+    differentiable: False
+    eps: 1e-08
+    foreach: None        
+    fused: None
+    lr: 0.0001
+    maximize: False      
+    weight_decay: 0.0001 
+)
+True
+no augmentation
+#################### Start Training ####################
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [64,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [65,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [66,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [67,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [68,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [69,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [70,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [71,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [72,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [73,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [55,0,0], thread: [74,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [96,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [97,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [98,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [99,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [100,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [101,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [102,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [103,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [104,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [105,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [106,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [107,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [108,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [109,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [110,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [111,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [112,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [113,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [114,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [115,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [116,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [117,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [25,0,0], thread: [118,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [51,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [52,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [53,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [54,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [55,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [56,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [57,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [58,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [59,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [60,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [61,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [62,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\cuda\ScatterGatherKernel.cu:367: block: [43,0,0], thread: [63,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+Traceback (most recent call last):
+  File "\\NAS_home\Develop\Coding\Research\lossFuncition-4SN\main\Train.py", line 348, in <module>
+
+  File "\\NAS_home\Develop\Coding\Research\lossFuncition-4SN\main\Train.py", line 184, in train
+    #loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\NAS_home\Develop\Coding\Research\lossFuncition-4SN\main\lossTest.py", line 388, in forward
+    y_cpu = y.detach().cpu().numpy()
+            ^^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+```
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
@@ -219,3 +328,5 @@ Ho chiesto chiarimenti sul da farsi e bisogna implementare questa loss [Region-w
             UserWarning: size_average and reduce args will be deprecated, 
             please use reduction='mean' instead.
             warnings.warn(warning.format(ret))
+
+

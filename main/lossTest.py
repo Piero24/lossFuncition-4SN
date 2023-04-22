@@ -380,11 +380,9 @@ class RWLoss(nn.Module):
             # The tensor y is moved to the GPU 
             # to take advantage of GPU acceleration during computation.
             y = y.cuda(x.device.index)
-        
         # A value of 1 is set for each index indicated in y_, 
         # where y_ is a class label index tensor.
         y.scatter_(1, y_.long(), 1)
-
         # The tensor y is moved to the CPU and converted into a NumPy array, 
         # which is needed for calculating the RRW maps.
         y_cpu = y.detach().cpu().numpy()

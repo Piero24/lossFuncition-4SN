@@ -3,6 +3,10 @@ import logging
 import argparse
 from datetime import datetime
 
+import os
+os.environ['TORCH_USE_CUDA_DSA'] = '1'
+
+
 import torch
 import numpy as np
 from torch.autograd import Variable
@@ -20,6 +24,8 @@ from loss import focal_loss, tversky_loss
 from loss import focal_tversky_loss, combo_loss
 from loss import structure_loss
 from lossTest import RWLoss
+# Folder path
+import folder_path
 
 
 
@@ -170,23 +176,26 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             P1, P2, P3, P4= model(images)
 
             # ---- loss function ----
-            # loss_P1 = structure_loss(P1, gts)
-            # loss_P2 = structure_loss(P2, gts)
-            # loss_P3 = structure_loss(P3, gts)
-            # loss_P4 = structure_loss(P4, gts)
-            # loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
+            #loss_P1 = structure_loss(P1, gts)
+            #loss_P2 = structure_loss(P2, gts)
+            #loss_P3 = structure_loss(P3, gts)
+            #loss_P4 = structure_loss(P4, gts)
+            #loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
             # Creazione dell'istanza della classe RWLoss
             rw_loss = RWLoss()
             loss = rw_loss.forward(P1, gts)
             
             # ---- backward ----
-            loss.backward()
+            #loss.backward()
             clip_gradient(optimizer, opt.clip)
             optimizer.step()
             
             # ---- recording loss ----
-            #if rate == 1:
+            if rate == 1:
                 #loss_P2_record.update(loss_P4.data, opt.batchsize)
+                loss_P2_record.update(loss.data, opt.batchsize)
+        
+        print("Here")    
         
         # ---- train visualization ----
         if i % 20 == 0 or i == total_step:
@@ -194,7 +203,9 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
                   ' lateral-5: {:0.4f}] lr'.
                   format(datetime.now(), epoch, opt.epoch, i, total_step,
                          loss_P2_record.show()), optimizer.param_groups[0]['lr'])
-            
+        
+        print("Here1")
+
     # save model
     save_path = (opt.train_save)
     if not os.path.exists(save_path):
@@ -203,7 +214,7 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
 
     # choose the best model
     global dict_plot
-    test1path = '//NAS_home/Develop/Coding/Research/HSNet/dataset/TestDataset/'
+    test1path = folder_path.MY_TRAIN_FOLDER_PATH
     if (epoch + 1) % 1 == 0:
 
         for dataset in ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB']:
@@ -277,10 +288,11 @@ if __name__ == '__main__':
     
     # default=8
     parser.add_argument('--batchsize', type=int,
-                        default=3, help='training batch size')
-
+                        default=2, help='training batch size')
+    
+    #default=352
     parser.add_argument('--trainsize', type=int,
-                        default=352, help='training dataset size')
+                        default=150, help='training dataset size')
 
     parser.add_argument('--clip', type=float,
                         default=0.5, help='gradient clipping margin')
@@ -293,12 +305,12 @@ if __name__ == '__main__':
 
     parser.add_argument('--train_path', type=str,
                         #default='./dataset/TrainDataset/',
-                        default='//NAS_home/Develop/Coding/Research/HSNet/dataset/TrainDataset/',
+                        default=folder_path.MY_TRAIN_FOLDER_PATH,
                         help='path to train dataset')
 
     parser.add_argument('--test_path', type=str,
                         #default='./dataset/TestDataset/',
-                        default='//NAS_home/Develop/Coding/Research/HSNet/dataset/TestDataset/',
+                        default=folder_path.MY_TEST_FOLDER_PATH,
                         help='path to testing Kvasir dataset')
 
     parser.add_argument('--train_save', type=str,
