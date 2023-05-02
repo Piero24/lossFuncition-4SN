@@ -324,6 +324,8 @@ La cartella con la versione di python viene installata al seguente path:
 
 Sfortunatamente il problema persiste.
 
+Maybe this can fix the issue?
+https://discuss.pytorch.org/t/assertion-n-idx-dim-0-idx-dim-index-size-index-out-of-bounds-failed/166275
 
 
 
