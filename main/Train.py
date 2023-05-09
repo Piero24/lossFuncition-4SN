@@ -53,9 +53,11 @@ def test(model: torch.nn.Module, path: str, dataset: str) -> float:
     """
 
     # Build paths to images and masks
-    data_path = os.path.join(path, dataset)
+    #data_path = os.path.join(path, dataset)
+    data_path = '{}/{}'.format(path, dataset)
     image_root = '{}/images/'.format(data_path)
     gt_root = '{}/masks/'.format(data_path)
+
 
     # Set model to evaluation mode
     model.eval()
@@ -166,8 +168,15 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
                 images = F.interpolate(images, size=(trainsize, trainsize), mode='bilinear', align_corners=True)
                 gts = F.interpolate(gts, size=(trainsize, trainsize), mode='bilinear', align_corners=True)
             
+
+            # Copia il tensore images
+            new_images = torch.clone(images)
+
             # ---- forward ----
-            P1, P2, P3, P4= model(images)
+            #P1, P2, P3, P4 = model(images)
+
+            # Unione dei risultati in un unico tensore
+            # combined_tensor = torch.cat((P1, P2, P3, P4), dim=1)
 
             # ---- loss function ----
             #loss_P1 = structure_loss(P1, gts)
@@ -177,19 +186,19 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             #loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
             # Creazione dell'istanza della classe RWLoss
             rw_loss = RWLoss()
-            loss = rw_loss.forward(P1, gts)
-            
+            #loss = rw_loss.forward(combined_tensor, gts)
+            loss = rw_loss.forward(new_images, gts)
+
             # ---- backward ----
             #loss.backward()
             clip_gradient(optimizer, opt.clip)
             optimizer.step()
+
             
             # ---- recording loss ----
             if rate == 1:
                 #loss_P2_record.update(loss_P4.data, opt.batchsize)
-                loss_P2_record.update(loss.data, opt.batchsize)
-        
-        print("Here")    
+                loss_P2_record.update(loss.data, opt.batchsize) 
         
         # ---- train visualization ----
         if i % 20 == 0 or i == total_step:
@@ -197,8 +206,6 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
                   ' lateral-5: {:0.4f}] lr'.
                   format(datetime.now(), epoch, opt.epoch, i, total_step,
                          loss_P2_record.show()), optimizer.param_groups[0]['lr'])
-        
-        print("Here1")
 
     # save model
     save_path = (opt.train_save)
@@ -208,7 +215,7 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
 
     # choose the best model
     global dict_plot
-    test1path = folder_path.MY_TRAIN_FOLDER_PATH
+    test1path = folder_path.MY_TEST_FOLDER_PATH
     if (epoch + 1) % 1 == 0:
 
         for dataset in ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB']:
@@ -280,10 +287,9 @@ if __name__ == '__main__':
     parser.add_argument('--augmentation',
                         default=True, help='choose to do random flip rotation')
     
-    # default=8
+    #default=8
     parser.add_argument('--batchsize', type=int,
-                        default=3, help='training batch size')
-    
+                        default=2, help='training batch size')
     #default=352
     parser.add_argument('--trainsize', type=int,
                         default=150, help='training dataset size')
@@ -340,8 +346,8 @@ if __name__ == '__main__':
     print("#" * 20, "Start Training", "#" * 20)
 
     for epoch in range(1, opt.epoch):
-         adjust_lr(optimizer, opt.lr, epoch, 0.1, 200)
-         train(train_loader, model, optimizer, epoch, opt.test_path)
+        adjust_lr(optimizer, opt.lr, epoch, 0.1, 200)
+        train(train_loader, model, optimizer, epoch, opt.test_path)
 
     #for epoch in range(1, opt.epoch):
     #

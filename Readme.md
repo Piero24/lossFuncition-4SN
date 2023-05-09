@@ -290,8 +290,6 @@ Per poter istallare la versione indicata di torch bisogna effettuare l'installaz
 Le dipendenze installate dopo aver installato la versione corretta di python sono le seguenti e sono state fatte in questo ordine.
 
 
-
-
 ```sh
 pip install torch==1.7.1+cu101 torchvision==0.8.2+cu101 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
 
@@ -328,21 +326,126 @@ Maybe this can fix the issue?
 https://discuss.pytorch.org/t/assertion-n-idx-dim-0-idx-dim-index-size-index-out-of-bounds-failed/166275
 
 
+Per sistemare l'errore ho provato differenti approcci e guardando il link sopra indicato ho provato differenti metodi:
+
+Suggerito quanto segue
+
+L'errore che stai riscontrando sembra essere dovuto a un'operazione di indicizzazione non valida durante l'utilizzo del metodo scatter_() su un tensore y. L'errore è specificato come "index out of bounds", il che significa che uno o più valori dell'indice utilizzato per l'indicizzazione sono al di fuori dei limiti validi.
+
+Per risolvere questo problema, segui questi passaggi:
+
+Controlla il messaggio di errore completo, in particolare la traccia dello stack (stack trace) che dovrebbe indicare l'operazione di indicizzazione che ha causato l'errore. Potrebbe esserci un numero di riga specificato nella traccia dello stack che ti aiuterà a identificare la posizione esatta del problema.
+
+Una volta individuata l'operazione di indicizzazione problematica, assicurati che i valori nell'indice (y_.long()) siano all'interno dei limiti validi. Ad esempio, se y_.long() contiene indici che rappresentano le etichette di classe, assicurati che siano compresi tra 0 e il numero totale di classi meno uno.
+
+Se gli indici sono fuori dai limiti, potresti dover controllare come vengono generati o passati all'operazione scatter_(). Assicurati che l'indice sia correttamente calcolato in base ai tuoi requisiti e al formato dei dati.
+
+Se gli indici sembrano corretti, potrebbe esserci un problema con la dimensione del tensore y. Assicurati che y abbia la stessa forma del tensore x, poiché scatter_() richiede che i due tensori abbiano le stesse dimensioni.
+
+Inoltre, verifica che il dispositivo corretto sia utilizzato per eseguire le operazioni. Nel tuo caso, stai controllando se la GPU è disponibile e sposti y sulla GPU. Assicurati che x e y siano sullo stesso dispositivo (CPU o GPU) prima di eseguire scatter_().
+
+
+
+Come prima cosa ho applicato quanto segue: 
+Ho impostato num_class a 2 per vedere quanti valori erano fuori dal range e non venivano segnati indici errati.
+
+Il valore di num_classes, ovvero il numero totale di classi, dipende dal contesto del tuo problema specifico. È una variabile che dovresti conoscere o definire in base al dataset o al problema che stai affrontando.
+
+Se stai lavorando con un problema di classificazione, num_classes rappresenta il numero di classi uniche presenti nei tuoi dati di addestramento o nel tuo dataset. Ad esempio, se stai eseguendo la classificazione di immagini in 10 diverse categorie, num_classes sarà 10.
+
+```python
+num_classes = 2
+index_max = torch.max(y_.long())
+index_min = torch.min(y_.long())
+
+# Verifica i limiti validi degli indici
+valid_index_min = 0  # Il valore minimo dell'indice valido
+valid_index_max = num_classes - 1  # Il valore massimo dell'indice valido, dove `num_classes` è il numero totale di classi
+
+if index_min < valid_index_min or index_max > valid_index_max:
+    print("Valori dell'indice fuori dai limiti validi!")
+    # Aggiungi qui le azioni correttive necessarie
+else:
+    # Gli indici sono all'interno dei limiti validi
+    # Prosegui con il tuo codice
+
+```
+
+Di conseguenza gli indici mi sembravano corretti (o almeno credo). Quindi ho verificato che i tensori x e y abbiano le stesse dimensioni. Questo percè come precedentemente detto l'errore sembrava fosse nel metodo scatter_.
+
+Ho dunque provato con:
+
+```python
+
+# Controlla se le forme dei tensori x e y non corrispondono
+if x.shape != y.shape:
+    # Adatta la dimensione di y alla forma di x
+    y = y.view(x.shape)
+
+```
+Implementandolo tra la verifica di cuda e lo scatter. Ma non ha funzionato.
+
+Ho provato ad applicare ``softmax_helper()`` ad y_
+
+```python
+
+y_ = softmax_helper(y)
+
+```
+
+E anche qui purtroppo non ha funzionato.
+
+
+Allora ho provato andando nel file ``Train.py`` a verificare i dati in input e ho notato che utilizzando direttamente l'immagine al posto dei valori P1... quindi senza applicare la funzione
+``model()``Funzionava senza problemi (devo capire ancora il perchè).
 
 
 
 
+Problema successivo è che il tensore non ha la backword che aveva se usavo P1. dunque ho dovuto commentare queste la riga nel file ``Train.py`` riguardante la ``backward()``
+
+```python
+
+ # ---- backward ----
+#loss.backward()
+clip_gradient(optimizer, opt.clip)
+optimizer.step()
+
+```
+
+Successivamente  ho dovuto commentare per un'altro errore dovuto alla mancanza della loss_P4 un'ulteriore riga. E l'ho sostituita con la nuova loss.
+
+    ```python
+        from
+            # ---- recording loss ----
+            if rate == 1:
+                loss_P2_record.update(loss_P4.data, opt.batchsize)
+
+        to
+            # ---- recording loss ----
+            if rate == 1:
+                #loss_P2_record.update(loss_P4.data, opt.batchsize)
+                loss_P2_record.update(loss.data, opt.batchsize) 
+    ```
+
+Ora il codice funziona ma da un'altro errore molto più avanti perchè non trova una cartella quindi da verificare quello.
+
+Era un errore in
+
+```python
+        from
+            test1path = folder_path.MY_TRAIN_FOLDER_PATH
+
+        to
+            test1path = folder_path.MY_TEST_FOLDER_PATH
+    ```
+
+avrò sbagliato io in precedenza a inserire il percorso.
 
 
+RuntimeError: The size of tensor a (20) must match the size of tensor b (19) at non-singleton dimension 3
 
-
-
-
-
-
-
-
-
+torch.Size([2, 1, 128, 128]) torch.Size([2, 1, 128, 128]) torch.Size([2, 1, 128, 128]) torch.Size([2, 1, 128, 128])
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
