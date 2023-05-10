@@ -378,6 +378,14 @@ def plot_train(dict_plot: dict = None, name: list = None) -> None:
 
 
 if __name__ == '__main__':
+    """
+        WARNING: The batchsize and trainsize parameters are related. 
+            The trainsize parameter must be a multiple of bach size. 
+            For example if trainsize is 352 then batchsize can be set 
+            to 2 to 4 or 8 but for example it cannot be 6 or 9. 
+            This otherwise generates random errors in the code. 
+            Unfortunately this is a basic AdamW bug that cannot be fixed.
+    """
     # Empty dictionary that will be used to store the training curves of the different datasets. 
     # Dictionary keys are dataset names and values are empty lists that will be populated 
     # with training curves
