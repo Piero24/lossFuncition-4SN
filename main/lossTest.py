@@ -4,6 +4,8 @@
 import torch
 import numpy as np
 from torch import nn
+# Provides useful functions for building neural networks, 
+# such as activation functions and loss functions
 import torch.nn.functional as F
 from nnunet.utilities.nd_softmax import softmax_helper
 from scipy.ndimage import distance_transform_edt as dist

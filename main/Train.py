@@ -1,6 +1,6 @@
 import os
 import logging
-# Parses the command-line arguments passed to the program.
+# Parses the command-line arguments passed to the program
 import argparse
 from datetime import datetime
 
@@ -10,7 +10,7 @@ import numpy as np
 # automatic gradient calculation
 from torch.autograd import Variable
 # Provides useful functions for building neural networks, 
-# such as activation functions and loss functions.
+# such as activation functions and loss functions
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 
@@ -18,7 +18,7 @@ from lib.pvt import HSNet
 # Functions to get the data loaders, while
 from utils.dataloader import get_loader, test_dataset
 # Utility functions or classes for handling gradients, 
-# adjusting the learning rate, and calculating averages.
+# adjusting the learning rate, and calculating averages
 from utils.utils import clip_gradient, adjust_lr, AvgMeter
 
 # Loss Function
@@ -281,7 +281,7 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
 
             # ---- forward ----
             #
-            # INFO: What it do?
+            # INFO: What does it do?
             P1, P2, P3, P4 = model(images)
 
             # Outputs are concatenated along dimension 1 to 
