@@ -461,7 +461,7 @@ if __name__ == '__main__':
     # Specifies the number of epochs for model training
     parser.add_argument('--epoch', type=int,
                         # default=100
-                        default=5, help='epoch number')
+                        default=15, help='epoch number')
     
     # Specifies the learning rate used by the optimizer during training
     parser.add_argument('--lr', type=float,
@@ -570,7 +570,7 @@ if __name__ == '__main__':
 
     print("#" * 20, "Start Training", "#" * 20)
 
-    for epoch in range(1, opt.epoch):
+    for epoch in range(1, opt.epoch + 1):
         # Adjusts the learning rate of the optimizer based on the current epoch. 
         # The function takes as arguments the optimizer (optimizer), initial 
         # learning rate (opt.lr), current epoch (epoch), 

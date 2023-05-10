@@ -447,6 +447,22 @@ RuntimeError: The size of tensor a (20) must match the size of tensor b (19) at 
 
 torch.Size([2, 1, 128, 128]) torch.Size([2, 1, 128, 128]) torch.Size([2, 1, 128, 128]) torch.Size([2, 1, 128, 128])
 
+
+
+
+
+for epoch in range(1, opt.epoch + 1):
+
+
+
+
+
+
+
+
+
+
+
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ## Messaggio di warning da sistemare (non da problemi nel codice al momento)
