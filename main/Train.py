@@ -268,71 +268,129 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             # masks to the size specified by trainsize.
             trainsize = int(round(opt.trainsize * rate / 32) * 32)
 
+            # If the rate scaling factor is not equal to 1, 
+            # images and masks are scaled to the size specified 
+            # by trainsize using bilinear interpolation.
             if rate != 1:
                 images = F.interpolate(images, size=(trainsize, trainsize), mode='bilinear', align_corners=True)
                 gts = F.interpolate(gts, size=(trainsize, trainsize), mode='bilinear', align_corners=True)
             
 
             # Copy of the original images for later use
-            new_images = torch.clone(images)
+            # new_images = torch.clone(images)
 
             # ---- forward ----
+            #
+            # INFO: What it do?
             P1, P2, P3, P4 = model(images)
 
-            # Unione dei risultati in un unico tensore
+            # Outputs are concatenated along dimension 1 to 
+            # obtain a single combined_tensor tensor that 
+            # combines information from different levels of depth
             combined_tensor = torch.cat((P1, P2, P3, P4), dim=1)
 
             # ---- loss function ----
-            #loss_P1 = structure_loss(P1, gts)
-            #loss_P2 = structure_loss(P2, gts)
-            #loss_P3 = structure_loss(P3, gts)
-            #loss_P4 = structure_loss(P4, gts)
-            #loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
-            # Creazione dell'istanza della classe RWLoss
+            #
+            # The losses for each of the four outputs are 
+            # calculated using the structure_loss loss function, 
+            # which compares the model predictions with 
+            # the ground truth masks
+            loss_P1 = structure_loss(P1, gts)
+            loss_P2 = structure_loss(P2, gts)
+            loss_P3 = structure_loss(P3, gts)
+            loss_P4 = structure_loss(P4, gts)
+            loss = loss_P1 + loss_P2 + loss_P3 + loss_P4
+            # Instantiating the RWLoss class
             rw_loss = RWLoss()
+            # Calculated the loss
             loss = rw_loss.forward(combined_tensor, gts)
-            #loss = rw_loss.forward(new_images, gts)
+            # Calculated the loss
+            # loss = rw_loss.forward(new_images, gts)
 
             # ---- backward ----
+            # 
+            # Backward pass by calling the backward() 
+            # method on the loss. 
+            # This computes the gradients of the model 
+            # parameters with respect to the loss
             loss.backward()
+            # The gradients are then capped 
+            # to prevent them from getting too large
             clip_gradient(optimizer, opt.clip)
+            # Update of model parameters. 
+            # This updates the model parameters based on the gradients calculated during back propagation.
             optimizer.step()
 
             
             # ---- recording loss ----
             if rate == 1:
-                #loss_P2_record.update(loss_P4.data, opt.batchsize)
+                # Object is updated with the current loss value
+                # INFO: Why only with loss_P4?
+                # loss_P2_record.update(loss_P4.data, opt.batchsize)
+                # Object is updated with the current loss value
                 loss_P2_record.update(loss.data, opt.batchsize) 
         
         # ---- train visualization ----
+        #
+        # It checks if the current iteration i is 
+        # a multiple of 20 or if it's the last step
         if i % 20 == 0 or i == total_step:
+            # Print the training progress
             print('{} Epoch [{:03d}/{:03d}], Step [{:04d}/{:04d}], '
                   ' lateral-5: {:0.4f}] lr'.
                   format(datetime.now(), epoch, opt.epoch, i, total_step,
                          loss_P2_record.show()), optimizer.param_groups[0]['lr'])
 
-    # save model
+    # Save model
     save_path = (opt.train_save)
     if not os.path.exists(save_path):
         os.makedirs(save_path)
+
+    # Saves the model's state dictionary to a file in the save_path directory, 
+    # with the filename consisting of the current epoch and the model name 
+    # ('PolypPVT.pth')
     torch.save(model.state_dict(), save_path +str(epoch)+ 'PolypPVT.pth')
 
-    # choose the best model
+    # ---- Choose the best model ----
+    # 
+    # Responsible for evaluating the model on test 
+    # datasets and selecting the best model based 
+    # on the evaluation results
+
+    # Store the evaluation results
     global dict_plot
+
+    # Path to the test dataset
     test1path = folder_path.MY_TEST_FOLDER_PATH
+
+    # For every epoch
     if (epoch + 1) % 1 == 0:
 
+        # Iterates over different datasets
         for dataset in ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB']:
+            # Function to evaluate the model on that dataset 
             dataset_dice = test(model, test1path, dataset)
+            # It logs the evaluation result, including the current epoch, dataset name, and dice score
             logging.info('epoch: {}, dataset: {}, dice: {}'.format(epoch, dataset, dataset_dice))
             print(dataset, ': ', dataset_dice)
+            # Appends the dice score of the dataset to the dict_plot 
+            # dictionary for plotting purposes
             dict_plot[dataset].append(dataset_dice)
-
+        
+        # After evaluating on individual datasets, it 
+        # evaluates the model on the 'test' dataset
         meandice = test(model, test_path, 'test')
+        # Appends the dice score of the 'test' dataset 
+        # to the dict_plot dictionary
         dict_plot['test'].append(meandice)
 
+        # If the dice score of the 'test' dataset is 
+        # higher than the current best score
         if meandice > best:
+            # Updates the best score to the new dice score
             best = meandice
+            # Saves the model's state dictionary 
+            # to two separate files: 'PolypPVT.pth' and 'PolypPVT-best.pth
             torch.save(model.state_dict(), save_path + 'PolypPVT.pth')
             torch.save(model.state_dict(), save_path +str(epoch)+ 'PolypPVT-best.pth')
             print('##############################################################################best', best)
@@ -403,7 +461,7 @@ if __name__ == '__main__':
     # Specifies the number of epochs for model training
     parser.add_argument('--epoch', type=int,
                         # default=100
-                        default=2, help='epoch number')
+                        default=5, help='epoch number')
     
     # Specifies the learning rate used by the optimizer during training
     parser.add_argument('--lr', type=float,
@@ -423,11 +481,13 @@ if __name__ == '__main__':
     # Specifies the training batch size, that is, the number 
     # of samples to use in a single training iteration
     parser.add_argument('--batchsize', type=int,
-                        default=8, help='training batch size')
+                        # default=8
+                        default=2, help='training batch size')
     
     # Specifies the size of the training dataset, i.e. 
     # the total number of training samples
     parser.add_argument('--trainsize', type=int,
+                        # default=352
                         default=352, help='training dataset size')
     
     # Specifies the limit value for clip gradients during training. 
