@@ -482,7 +482,7 @@ if __name__ == '__main__':
     # of samples to use in a single training iteration
     parser.add_argument('--batchsize', type=int,
                         # default=8
-                        default=2, help='training batch size')
+                        default=8, help='training batch size')
     
     # Specifies the size of the training dataset, i.e. 
     # the total number of training samples
