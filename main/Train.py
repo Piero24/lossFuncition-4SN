@@ -34,6 +34,8 @@ from lossTest import RWLoss
 import folder_path
 
 
+
+
 def test(model: torch.nn.Module, path: str, dataset: str) -> float:
     """Compute the Dice Similarity Coefficient (DSC) on a dataset using a given model.
 
@@ -507,7 +509,7 @@ if __name__ == '__main__':
     # Specifies the number of epochs for model training
     parser.add_argument('--epoch', type=int,
                         # default=100
-                        default=200, help='epoch number')
+                        default=1, help='epoch number')
     
     # Specifies the learning rate used by the optimizer during training
     parser.add_argument('--lr', type=float,
