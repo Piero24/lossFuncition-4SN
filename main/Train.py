@@ -507,7 +507,7 @@ if __name__ == '__main__':
     # Specifies the number of epochs for model training
     parser.add_argument('--epoch', type=int,
                         # default=100
-                        default=1, help='epoch number')
+                        default=200, help='epoch number')
     
     # Specifies the learning rate used by the optimizer during training
     parser.add_argument('--lr', type=float,
