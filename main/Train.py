@@ -4,6 +4,7 @@ import logging
 import argparse
 from datetime import datetime
 
+import pandas as pd
 import torch
 import numpy as np
 # Allows you to create tensors with support for 
@@ -435,6 +436,51 @@ def plot_train(dict_plot: dict = None, name: list = None) -> None:
 
 
 
+def plot_train_table(dict_plot: dict = None, name: list = None) -> None:
+    """Plot a table of training data.
+
+    Args:
+        dict_plot (dict, optional): A dictionary containing the training data.
+        name (list, optional): A list of names for the datasets.
+
+    Returns:
+        None
+
+    """
+    data = []
+    transfuse = {'CVC-300': 0.902, 'CVC-ClinicDB': 0.918, 'Kvasir': 0.918, 'CVC-ColonDB': 0.773,'ETIS-LaribPolypDB': 0.733, 'test': 0.83}
+    
+    # Create a row for each dataset
+    for i in range(len(name)):
+        row = [name[i]]
+        loss_value = dict_plot[name[i]]
+        loss_value_rounded = round(loss_value[0], 4)
+        row.extend([loss_value_rounded])
+        row.append(transfuse[name[i]])
+        data.append(row)
+    
+    # Create the column labels
+    columns = ['Dataset'] + [f'Epoch {i+1}' for i in range(len(dict_plot[name[0]]))] + ['Transfuse']
+
+    # Create a pandas DataFrame from the data
+    df = pd.DataFrame(data, columns=columns)
+    df = df.transpose()
+    
+    # Plotting settings
+    plt.axis('off')
+    table = plt.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center')
+    table.auto_set_font_size(False)
+    table.set_fontsize(11)
+    table.scale(2, 1.5)
+    
+    # Save and display the table
+    plt.savefig('table.png', bbox_inches='tight')
+    plt.show()
+    plt.close()
+    print(f'Tabella salvata come table.png')
+
+
+
 if __name__ == '__main__':
     """
         WARNING: The batchsize and trainsize parameters are related. 
@@ -461,7 +507,7 @@ if __name__ == '__main__':
     # Specifies the number of epochs for model training
     parser.add_argument('--epoch', type=int,
                         # default=100
-                        default=15, help='epoch number')
+                        default=1, help='epoch number')
     
     # Specifies the learning rate used by the optimizer during training
     parser.add_argument('--lr', type=float,
@@ -482,7 +528,7 @@ if __name__ == '__main__':
     # of samples to use in a single training iteration
     parser.add_argument('--batchsize', type=int,
                         # default=8
-                        default=8, help='training batch size')
+                        default=2, help='training batch size')
     
     # Specifies the size of the training dataset, i.e. 
     # the total number of training samples
@@ -596,6 +642,8 @@ if __name__ == '__main__':
     
     # Plot the eval.png in the training stage
     plot_train(dict_plot, name)
+    # Plot the table.png in the training stage
+    plot_train_table(dict_plot, name)
 
     print("#" * 20, "  End Training  ", "#" * 20)
 

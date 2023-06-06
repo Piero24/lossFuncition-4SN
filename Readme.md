@@ -26,7 +26,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 ```
 <br/>
 
-* Sono stati cambiati i percorsi (path) nel file ``train.py`` per il training ed il test in base a dove sono posizionate le cartelle nel mio computer.
+* Sono stati cambiati i path nel file ``train.py`` per il training ed il test in base a dove sono posizionate le cartelle nel mio computer.
 <br/>
 
 * Ridotto il batch size da 8 a 2 nel file ``train.py`` per evitare il seguente errore:
