@@ -11,10 +11,13 @@ from utils.dataloader import test_dataset
 import cv2
 
 
-if __name__ == '__main__':
-    
 
+
+def hsnet_mask_writer(folder_path: str) -> None:
+    """
     folder_path = "./model_pth_200/PolypPVT/"
+    """
+
     pth_files = glob.glob(folder_path + "*.pth")
     total_model = len(pth_files) 
 
@@ -59,3 +62,7 @@ if __name__ == '__main__':
         
     print("#" * 20, "  End mask estraction  ", "#" * 20)
         
+
+
+# if __name__ == '__main__':
+#     hsnet_mask_writer("./model_pth_200/PolypPVT/")

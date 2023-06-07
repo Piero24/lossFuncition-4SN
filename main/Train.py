@@ -32,6 +32,8 @@ from lossTest import RWLoss
 
 # Contains folder paths or other constants useful in code
 import folder_path
+#
+import HSNetMod
 
 
 
@@ -646,6 +648,8 @@ if __name__ == '__main__':
     plot_train(dict_plot, name)
     # Plot the table.png in the training stage
     plot_train_table(dict_plot, name)
+    # Test the model on the mask of the test set and save the mask 
+    HSNetMod.hsnet_mask_writer("./model_pth/PolypPVT/")
 
     print("#" * 20, "  End Training  ", "#" * 20)
 
