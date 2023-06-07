@@ -1,3 +1,8 @@
+# https://hpc.polito.it/docs/guide-slurm-en.pdf
+# https://www.sciencedirect.com/science/article/abs/pii/S0010482522008812?via%3Dihub
+# https://arxiv.org/pdf/2108.01405.pdf
+
+
 import os
 import logging
 # Parses the command-line arguments passed to the program
