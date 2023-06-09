@@ -44,8 +44,7 @@ import HSNetMod
 
 
 def test(model: torch.nn.Module, path: str, dataset: str) -> float:
-    """Compute the Dice Similarity Coefficient (DSC) on a dataset using a 
-        given model.
+    """Compute the Dice Similarity Coefficient (DSC) on a dataset using a given model.
 
     Args:
         model: the PyTorch model to use for testing.
@@ -68,14 +67,12 @@ def test(model: torch.nn.Module, path: str, dataset: str) -> float:
             warnings.warn("nn.functional.upsample is deprecated. Use nn.functional.interpolate instead.")
 
         If you want to go back to using upsample just change interpolate
-        with upsample without making any further changes to parameters or 
-        anything else.
+        with upsample without making any further changes to parameters or anything else.
     
     Notes:
-        The Dice Similarity Coefficient (DSC) is a metric commonly used to 
-        evaluate the similarity between two sets, in particular it is often used 
-        to measure the quality of a segmentation in computer vision problems, 
-        such as the segmentation of medical images.
+        The Dice Similarity Coefficient (DSC) is a metric commonly used to evaluate the 
+        similarity between two sets, in particular it is often used to measure the quality 
+        of a segmentation in computer vision problems, such as the segmentation of medical images.
 
         DSC measures the overlap between two sets using the following formula:
 
@@ -154,8 +151,7 @@ def test(model: torch.nn.Module, path: str, dataset: str) -> float:
         # Performs a bilinear interpolation of the summed segmentation 
         # predictions (res, res1, res2, and res3) to match the size of 
         # the segmentation labels (gt)
-        res = F.interpolate(res + res1 + res2 + res3 , size=gt.shape, 
-                            mode='bilinear', align_corners=False)
+        res = F.interpolate(res + res1 + res2 + res3 , size=gt.shape, mode='bilinear', align_corners=False)
         # Applies the sigmoid function to the res segmentation predictions, 
         # then converts the result into a numpy array, trimming off any 
         # unnecessary dimensions
@@ -176,15 +172,13 @@ def test(model: torch.nn.Module, path: str, dataset: str) -> float:
         input_flat = np.reshape(input, (-1))
         # Flattens the target array into a one-dimensional vector
         target_flat = np.reshape(target, (-1))
-        # Calculate the element-by-element intersection between input_flat and 
-        # target_flat
+        # Calculate the element-by-element intersection between input_flat and target_flat
         intersection = (input_flat * target_flat)
         # Calculate Dice's coefficient of similarity (DSC) using the formula 
         # (2 * intersection + smooth) / (input sum + target sum + smooth). 
         # The smooth value is added to both the numerator and denominator to 
         # avoid division by zero and ensure numerical stability
-        den = (input.sum() + target.sum() + smooth)
-        dice = (2 * intersection.sum() + smooth) / den
+        dice = (2 * intersection.sum() + smooth) / (input.sum() + target.sum() + smooth)
         # Format the value of dice as a string with 4 decimal places
         dice = '{:.4f}'.format(dice)
         dice = float(dice)
@@ -200,12 +194,10 @@ def test(model: torch.nn.Module, path: str, dataset: str) -> float:
 
 
 def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module, 
-          optimizer: torch.optim.Optimizer, epoch: int, test_path: str, 
-          dataset_name: str) -> float:
+          optimizer: torch.optim.Optimizer, epoch: int, test_path: str) -> float:
     
-    """Trains the model on the given train_loader using the specified optimizer 
-        and loss function. Also performs testing on multiple datasets to monitor 
-        the model's progress.
+    """Trains the model on the given train_loader using the specified optimizer and loss function.
+        Also performs testing on multiple datasets to monitor the model's progress.
 
     Args:
         train_loader (DataLoader): the data loader for the training set
@@ -230,8 +222,7 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             warnings.warn("nn.functional.upsample is deprecated. Use nn.functional.interpolate instead.")
 
         If you want to go back to using upsample just change interpolate
-        with upsample without making any further changes to parameters or 
-        anything else.
+        with upsample without making any further changes to parameters or anything else.
 
     """
 
@@ -291,11 +282,8 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             # images and masks are scaled to the size specified 
             # by trainsize using bilinear interpolation.
             if rate != 1:
-                images = F.interpolate(images, size=(trainsize, trainsize), 
-                                       mode='bilinear', align_corners=True)
-                
-                gts = F.interpolate(gts, size=(trainsize, trainsize), 
-                                    mode='bilinear', align_corners=True)
+                images = F.interpolate(images, size=(trainsize, trainsize), mode='bilinear', align_corners=True)
+                gts = F.interpolate(gts, size=(trainsize, trainsize), mode='bilinear', align_corners=True)
             
 
             # Copy of the original images for later use
@@ -340,8 +328,7 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             # to prevent them from getting too large
             clip_gradient(optimizer, opt.clip)
             # Update of model parameters. 
-            # This updates the model parameters based on the gradients 
-            # calculated during back propagation.
+            # This updates the model parameters based on the gradients calculated during back propagation.
             optimizer.step()
 
             
@@ -360,7 +347,7 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
         if i % 20 == 0 or i == total_step:
             # Print the training progress
             print('{} Epoch [{:03d}/{:03d}], Step [{:04d}/{:04d}], '
-                  'lateral-5: {:0.4f}] lr'.
+                  ' lateral-5: {:0.4f}] lr'.
                   format(datetime.now(), epoch, opt.epoch, i, total_step,
                          loss_P2_record.show()), optimizer.param_groups[0]['lr'])
 
@@ -372,7 +359,7 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
     # Saves the model's state dictionary to a file in the save_path directory, 
     # with the filename consisting of the current epoch and the model name 
     # ('PolypPVT.pth')
-    torch.save(model.state_dict(), save_path + str(epoch) + 'PolypPVT.pth')
+    torch.save(model.state_dict(), save_path +str(epoch)+ 'PolypPVT.pth')
 
     # ---- Choose the best model ----
     # 
@@ -391,14 +378,10 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
 
         # Iterates over different datasets
         for dataset in ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB']:
-            
             # Function to evaluate the model on that dataset 
             dataset_dice = test(model, test1path, dataset)
-            # It logs the evaluation result, including the current epoch, 
-            # dataset name, and dice score
-            logging.info('epoch: {}, dataset: {}, dice: {}'.format(epoch, 
-                                                                   dataset, 
-                                                                   dataset_dice))
+            # It logs the evaluation result, including the current epoch, dataset name, and dice score
+            logging.info('epoch: {}, dataset: {}, dice: {}'.format(epoch, dataset, dataset_dice))
             print(dataset, ': ', dataset_dice)
             # Appends the dice score of the dataset to the dict_plot 
             # dictionary for plotting purposes
@@ -419,20 +402,14 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             # Saves the model's state dictionary 
             # to two separate files: 'PolypPVT.pth' and 'PolypPVT-best.pth
             torch.save(model.state_dict(), save_path + 'PolypPVT.pth')
-            torch.save(model.state_dict(), save_path + str(epoch) + 'PolypPVT-best.pth')
-            print("#" * 30, 'best', best)
-            logging.info("#" * 30, 'best:{}'.format(best))
-    
-    if (epoch % 10) == 0:
-        plot_train(dict_plot, dataset_name, epoch)
-        plot_train_table(dict_plot, dataset_name, epoch)
+            torch.save(model.state_dict(), save_path +str(epoch)+ 'PolypPVT-best.pth')
+            print('##############################################################################best', best)
+            logging.info('##############################################################################best:{}'.format(best))
 
 
 
-def plot_train(dict_plot: dict = None, name: list = None, 
-               epoch: int = 0) -> None:
-    """Plot the training curves for different datasets and save the resulting 
-        image as "eval.png".
+def plot_train(dict_plot: dict = None, name: list = None) -> None:
+    """Plot the training curves for different datasets and save the resulting image as "eval.png".
 
     Args:
         dict_plot (dict): A dictionary containing the datasets names as keys 
@@ -442,40 +419,20 @@ def plot_train(dict_plot: dict = None, name: list = None,
 
     """
 
-    if epoch == 0:
-        plot_name = "final"
-    else:
-        plot_name = str(epoch)
-
     # List of colors that will be used for the lines of the graphs
     color = ['red', 'lawngreen', 'lime', 'gold', 'm', 'plum', 'blue']
     line = ['-', "--"]
 
-    save_path = f'./plot_and_table/'
-
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
-
     # iterate over each element in the list 
     for i in range(len(name)):
-        # Plot method is called to plot a graph using the data corresponding to 
-        # dict_plot[name[i]]. 
-        #
-        # The graph label is set as name[i] and the color and line style are 
-        # taken from the color and line lists respectively
-        plt.plot(dict_plot[name[i]], label=name[i], color=color[i], 
-                 linestyle=line[(i + 1) % 2])
+        # Plot method is called to plot a graph using the data corresponding to dict_plot[name[i]]. 
+        # The graph label is set as name[i] and the color and line style are taken 
+        # from the color and line lists respectively
+        plt.plot(dict_plot[name[i]], label=name[i], color=color[i], linestyle=line[(i + 1) % 2])
         # Contains some reference values associated with certain dataset names
-        transfuse = {
-            'CVC-300': 0.902, 
-            'CVC-ClinicDB': 0.918, 
-            'Kvasir': 0.918, 
-            'CVC-ColonDB': 0.773,
-            'ETIS-LaribPolypDB': 0.733, 
-            'test':0.83
-            }
-        # Draw a horizontal line in the graph at a height specified by the value 
-        # corresponding to the dataset name in the transfuse dictionary
+        transfuse = {'CVC-300': 0.902, 'CVC-ClinicDB': 0.918, 'Kvasir': 0.918, 'CVC-ColonDB': 0.773,'ETIS-LaribPolypDB': 0.733, 'test':0.83}
+        # Draw a horizontal line in the graph at a height specified by the value corresponding 
+        # to the dataset name in the transfuse dictionary
         plt.axhline(y=transfuse[name[i]], color=color[i], linestyle='-')
     
     # Plot and show the graph
@@ -483,16 +440,12 @@ def plot_train(dict_plot: dict = None, name: list = None,
     plt.ylabel("dice")
     plt.title('Train')
     plt.legend()
-    plt.savefig(f'{save_path}{plot_name}-plot.png')
-
-    if epoch == 0:
-        plt.show()
-        plt.close()
+    plt.savefig('eval.png')
+    plt.show()
 
 
 
-def plot_train_table(dict_plot: dict = None, name: list = None, 
-                     epoch: int = 0) -> None:
+def plot_train_table(dict_plot: dict = None, name: list = None) -> None:
     """Plot a table of training data.
 
     Args:
@@ -504,48 +457,19 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
 
     """
     data = []
-    transfuse = {
-        'CVC-300': 0.902, 
-        'CVC-ClinicDB': 0.918, 
-        'Kvasir': 0.918, 
-        'CVC-ColonDB': 0.773,
-        'ETIS-LaribPolypDB': 0.733, 
-        'test': 0.83
-        }
-
-    save_path = f'./plot_and_table/'
-
-    if epoch == 0:
-        plot_name = "final"
-    else:
-        plot_name = str(epoch)
-
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
-
+    transfuse = {'CVC-300': 0.902, 'CVC-ClinicDB': 0.918, 'Kvasir': 0.918, 'CVC-ColonDB': 0.773,'ETIS-LaribPolypDB': 0.733, 'test': 0.83}
+    
     # Create a row for each dataset
     for i in range(len(name)):
         row = [name[i]]
-        ultimi_10_elementi = dict_plot[name[i]][-10:]
-        list_extender = []
-
-        for index in ultimi_10_elementi:
-            dice_value_rounded = round(index, 4)
-            list_extender.append(dice_value_rounded)
-
-        row.extend(list_extender)      
+        loss_value = dict_plot[name[i]]
+        loss_value_rounded = round(loss_value[0], 4)
+        row.extend([loss_value_rounded])
         row.append(transfuse[name[i]])
         data.append(row)
     
     # Create the column labels
-    columns = ['Dataset']
-    dict_plot_name = dict_plot[name[0]]
-    num_epochs = len(dict_plot_name)
-    
-    for i in range(num_epochs):
-        columns.append(f'Epoch {i+1}')
-    columns.append('Transfuse')
-
+    columns = ['Dataset'] + [f'Epoch {i+1}' for i in range(len(dict_plot[name[0]]))] + ['Transfuse']
 
     # Create a pandas DataFrame from the data
     df = pd.DataFrame(data, columns=columns)
@@ -553,18 +477,16 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
     
     # Plotting settings
     plt.axis('off')
-    table = plt.table(cellText=df.values, colLabels=df.columns, 
-                      cellLoc='center', loc='center')
+    table = plt.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center')
     table.auto_set_font_size(False)
     table.set_fontsize(11)
     table.scale(2, 1.5)
     
     # Save and display the table
-    plt.savefig(f'{save_path}{plot_name}-table.png', bbox_inches='tight')
-
-    if epoch == 0:
-        plt.show()
-        plt.close()
+    plt.savefig('table.png', bbox_inches='tight')
+    plt.show()
+    plt.close()
+    print(f'Tabella salvata come table.png')
 
 
 
@@ -577,38 +499,24 @@ if __name__ == '__main__':
             This otherwise generates random errors in the code. 
             Unfortunately this is a basic AdamW bug that cannot be fixed.
     """
-    # Empty dictionary that will be used to store the training curves of the 
-    # different datasets. 
-    # Dictionary keys are dataset names and values are empty lists that will be 
-    # populated with training curves
-    dict_plot = {
-        'CVC-300':[], 
-        'CVC-ClinicDB':[], 
-        'Kvasir':[], 
-        'CVC-ColonDB':[], 
-        'ETIS-LaribPolypDB':[], 
-        'test':[]
-        }
+    # Empty dictionary that will be used to store the training curves of the different datasets. 
+    # Dictionary keys are dataset names and values are empty lists that will be populated 
+    # with training curves
+    dict_plot = {'CVC-300':[], 'CVC-ClinicDB':[], 'Kvasir':[], 'CVC-ColonDB':[], 'ETIS-LaribPolypDB':[], 'test':[]}
     # List of dataset names corresponding to dictionary keys
-    name = ['CVC-300', 
-            'CVC-ClinicDB', 
-            'Kvasir', 
-            'CVC-ColonDB', 
-            'ETIS-LaribPolypDB', 
-            'test']
+    name = ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB', 'test']
 
     ################## model_name #############################
     model_name = 'PolypPVT'
     ###############################################
 
-    # Created an ArgumentParser object from argparse to handle command 
-    # line arguments
+    # Created an ArgumentParser object from argparse to handle command line arguments
     parser = argparse.ArgumentParser()
 
     # Specifies the number of epochs for model training
     parser.add_argument('--epoch', type=int,
                         # default=100
-                        default=11, help='epoch number')
+                        default=1, help='epoch number')
     
     # Specifies the learning rate used by the optimizer during training
     parser.add_argument('--lr', type=float,
@@ -671,14 +579,12 @@ if __name__ == '__main__':
     parser.add_argument('--train_save', type=str,
                         default='./model_pth/'+model_name+'/')
     
-    # Command line arguments are parsed and the opt object is created 
-    # to store them
+    # Command line arguments are parsed and the opt object is created to store them
     opt = parser.parse_args()
     # Record log messages
     logging.basicConfig(filename='train_log.log',
                         format='[%(asctime)s-%(filename)s-%(levelname)s:%(message)s]',
-                        level=logging.INFO, filemode='a', 
-                        datefmt='%Y-%m-%d %I:%M:%S %p')
+                        level=logging.INFO, filemode='a', datefmt='%Y-%m-%d %I:%M:%S %p')
 
     # ---- build models ----
     # torch.cuda.set_device(0)  # set your gpu device
@@ -702,8 +608,7 @@ if __name__ == '__main__':
     if opt.optimizer == 'AdamW':
         optimizer = torch.optim.AdamW(params, opt.lr, weight_decay=1e-4)
     else:
-        optimizer = torch.optim.SGD(params, opt.lr, weight_decay=1e-4, 
-                                    momentum=0.9)
+        optimizer = torch.optim.SGD(params, opt.lr, weight_decay=1e-4, momentum=0.9)
 
     print(optimizer)
 
@@ -712,9 +617,7 @@ if __name__ == '__main__':
 
     # Object created using the get_loader function, which loads training 
     # data from the specified folders and returns a dataloader
-    train_loader = get_loader(image_root, gt_root, 
-                              batchsize=opt.batchsize, 
-                              trainsize=opt.trainsize,
+    train_loader = get_loader(image_root, gt_root, batchsize=opt.batchsize, trainsize=opt.trainsize,
                               augmentation=opt.augmentation)
     # Is set to the length of the dataloader, which represents the total 
     # number of batches in the training
@@ -733,7 +636,7 @@ if __name__ == '__main__':
         # Parameters include the training dataloader (train_loader), 
         # model (model), optimizer (optimizer), current epoch (epoch), 
         # and test data path (opt.test_path)
-        train(train_loader, model, optimizer, epoch, opt.test_path, name)
+        train(train_loader, model, optimizer, epoch, opt.test_path)
 
     # for epoch in range(1, opt.epoch):
     #     # If the current epoch is equal to 15 or 30, 
@@ -749,9 +652,9 @@ if __name__ == '__main__':
     # Plot the eval.png in the training stage
     plot_train(dict_plot, name)
     # Plot the table.png in the training stage
-    plot_train_table(dict_plot, name)
+    #plot_train_table(dict_plot, name)
     # Test the model on the mask of the test set and save the mask 
-    HSNetMod.hsnet_mask_writer("./model_pth/PolypPVT/")
+    #HSNetMod.hsnet_mask_writer("./model_pth/PolypPVT/")
 
     print("#" * 20, "  End Training  ", "#" * 20)
 

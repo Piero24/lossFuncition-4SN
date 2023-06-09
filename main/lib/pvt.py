@@ -612,7 +612,7 @@ class HSNet(nn.Module):
         super(HSNet, self).__init__()
 
         self.backbone = pvt_v2_b2()  # [64, 128, 320, 512]
-        path = './pre-trained/pvt_v2_b2.pth'
+        path = './main/pre-trained/pvt_v2_b2.pth'
         #path = './pretrained_pth/pvt_v2_b2.pth'
         save_model = torch.load(path)
         model_dict = self.backbone.state_dict()
