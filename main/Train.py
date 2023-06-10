@@ -420,8 +420,9 @@ def train(train_loader: torch.utils.data.DataLoader, model: torch.nn.Module,
             # to two separate files: 'PolypPVT.pth' and 'PolypPVT-best.pth
             torch.save(model.state_dict(), save_path + 'PolypPVT.pth')
             torch.save(model.state_dict(), save_path + str(epoch) + 'PolypPVT-best.pth')
-            print("#" * 30, 'best', best)
-            logging.info("#" * 30, 'best:{}'.format(best))
+            sharp_ = "#" * 30
+            print(sharp_, "best", best)
+            logging.info('{} best:{}'.format(sharp_, best))
     
     if (epoch % 10) == 0:
         plot_train(dict_plot, dataset_name, epoch)
@@ -479,6 +480,7 @@ def plot_train(dict_plot: dict = None, name: list = None,
         plt.axhline(y=transfuse[name[i]], color=color[i], linestyle='-')
     
     # Plot and show the graph
+    plt.figure()
     plt.xlabel("epoch")
     plt.ylabel("dice")
     plt.title('Train')
@@ -488,6 +490,8 @@ def plot_train(dict_plot: dict = None, name: list = None,
     if epoch == 0:
         plt.show()
         plt.close()
+    
+    plt.clf()
 
 
 
@@ -525,6 +529,7 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
 
     # Create a row for each dataset
     for i in range(len(name)):
+         
         row = [name[i]]
         ultimi_10_elementi = dict_plot[name[i]][-10:]
         list_extender = []
@@ -540,21 +545,23 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
     # Create the column labels
     columns = ['Dataset']
     dict_plot_name = dict_plot[name[0]]
-    num_epochs = len(dict_plot_name)
-    
+    num_epochs = len(dict_plot_name) - 1
+        
     for i in range(num_epochs):
         columns.append(f'Epoch {i+1}')
+
     columns.append('Transfuse')
 
-
     # Create a pandas DataFrame from the data
-    df = pd.DataFrame(data, columns=columns)
-    df = df.transpose()
+    df = pd.DataFrame(data, columns = columns)
+    # df = df.transpose()
     
     # Plotting settings
+    plt.figure()
     plt.axis('off')
     table = plt.table(cellText=df.values, colLabels=df.columns, 
                       cellLoc='center', loc='center')
+    
     table.auto_set_font_size(False)
     table.set_fontsize(11)
     table.scale(2, 1.5)
@@ -565,6 +572,8 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
     if epoch == 0:
         plt.show()
         plt.close()
+
+    plt.clf()
 
 
 
@@ -712,10 +721,11 @@ if __name__ == '__main__':
 
     # Object created using the get_loader function, which loads training 
     # data from the specified folders and returns a dataloader
-    train_loader = get_loader(image_root, gt_root, 
-                              batchsize=opt.batchsize, 
-                              trainsize=opt.trainsize,
-                              augmentation=opt.augmentation)
+    train_loader = get_loader(image_root, 
+                              gt_root, 
+                              batchsize = opt.batchsize, 
+                              trainsize = opt.trainsize, 
+                              augmentation = opt.augmentation)
     # Is set to the length of the dataloader, which represents the total 
     # number of batches in the training
     total_step = len(train_loader)
