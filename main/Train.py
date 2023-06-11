@@ -545,13 +545,17 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
     # Create the column labels
     columns = ['Dataset']
     dict_plot_name = dict_plot[name[0]]
-    num_epochs = len(dict_plot_name) - 1
+    num_epochs = len(dict_plot_name)
         
     for i in range(num_epochs):
         columns.append(f'Epoch {i+1}')
 
     columns.append('Transfuse')
 
+    print(data)
+    print()
+    print(columns)
+    print()
     # Create a pandas DataFrame from the data
     df = pd.DataFrame(data, columns = columns)
     # df = df.transpose()
