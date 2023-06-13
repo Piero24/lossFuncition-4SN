@@ -36,6 +36,9 @@ def hsnet_mask_writer(folder_path: str) -> None:
         print(f"Start with the model ({index_pth}/{total_model}): {file_path}")
         model_name_splitted = file_path.split('/')[-1].split('.')[0]
 
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--testsize', type=int, default=352, help='testing size')
+
         # Add the '--pth_path' argument to the argument parser and parse 
         # the arguments
         parser.add_argument('--pth_path', type=str, default = file_path)

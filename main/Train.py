@@ -456,6 +456,8 @@ def plot_train(dict_plot: dict = None, name: list = None,
 
     if not os.path.exists(save_path):
         os.makedirs(save_path)
+    
+    plt.figure()
 
     # iterate over each element in the list 
     for i in range(len(name)):
@@ -480,18 +482,12 @@ def plot_train(dict_plot: dict = None, name: list = None,
         plt.axhline(y=transfuse[name[i]], color=color[i], linestyle='-')
     
     # Plot and show the graph
-    plt.figure()
     plt.xlabel("epoch")
     plt.ylabel("dice")
     plt.title('Train')
     plt.legend()
     plt.savefig(f'{save_path}{plot_name}-plot.png')
-
-    if epoch == 0:
-        plt.show()
-        plt.close()
-    
-    plt.clf()
+    #plt.show()
 
 
 
@@ -544,27 +540,20 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
     
     # Create the column labels
     columns = ['Dataset']
-    dict_plot_name = dict_plot[name[0]]
-    num_epochs = len(dict_plot_name)
+    elem_in_one_data = data[0]
+    num_epochs = len(elem_in_one_data) - 2
         
     for i in range(num_epochs):
         columns.append(f'Epoch {i+1}')
 
     columns.append('Transfuse')
 
-    print(data)
-    print()
-    print(columns)
-    print()
-    # Create a pandas DataFrame from the data
-    df = pd.DataFrame(data, columns = columns)
-    # df = df.transpose()
+    data.insert(0, columns)
     
     # Plotting settings
     plt.figure()
     plt.axis('off')
-    table = plt.table(cellText=df.values, colLabels=df.columns, 
-                      cellLoc='center', loc='center')
+    table = plt.table(cellText=data, cellLoc='center', loc='center')
     
     table.auto_set_font_size(False)
     table.set_fontsize(11)
@@ -573,11 +562,6 @@ def plot_train_table(dict_plot: dict = None, name: list = None,
     # Save and display the table
     plt.savefig(f'{save_path}{plot_name}-table.png', bbox_inches='tight')
 
-    if epoch == 0:
-        plt.show()
-        plt.close()
-
-    plt.clf()
 
 
 
