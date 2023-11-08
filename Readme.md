@@ -13,6 +13,7 @@ pip3 install matplotlib
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
 ```
 <br/>
+<br/>
 
 # Modifiche preliminari
 
@@ -24,6 +25,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
     to
         path = './pre-trained/pvt_v2_b2.pth'
 ```
+
 <br/>
 
 * Sono stati cambiati i path nel file ``train.py`` per il training ed il test in base a dove sono posizionate le cartelle nel mio computer.
@@ -41,6 +43,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
     ```python
         res = (res - res.min()) / (res.max() - res.min() + 1e-8)
     ```
+    
     In quanto altrimenti si troverà sempre una foreground region.
     Questa modifica è stata fatta nei file:
 
