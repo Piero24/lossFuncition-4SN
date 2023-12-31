@@ -15,7 +15,7 @@
 
 
 <p align="center">
-  <img src="https://findicons.com/files/icons/2779/simple_icons/512/apple_512_black.png" width="100" height="100">
+  <img src="https://cdn-icons-png.flaticon.com/512/9828/9828886.png" width="100" height="100">
 </p>
 <h1 align="center">
     <a href="https://github.com/Piero24/**REPO-NAME**">Loss Funcition for Semantic Network</a>
