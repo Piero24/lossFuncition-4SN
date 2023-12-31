@@ -18,7 +18,7 @@
   <img src="https://findicons.com/files/icons/2779/simple_icons/512/apple_512_black.png" width="100" height="100">
 </p>
 <h1 align="center">
-    <a href="https://github.com/Piero24/**REPO-NAME**">PROJECT TITLE</a>
+    <a href="https://github.com/Piero24/**REPO-NAME**">lossFuncition for Semantic Network</a>
 </h1>
 <p align="center">
     <!-- BADGE -->
