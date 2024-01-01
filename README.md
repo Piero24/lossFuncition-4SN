@@ -290,8 +290,8 @@ The individual licenses are indicated in the following section.
     <td>Apache-2.0</td>
   </tr>
   <tr  align="center">
-    <td><a href="https://github.com/Lyken17/pytorch-OpCounter"></a>thop</td>
-    <td><a href="https://github.com/Lyken17"></a>Lyken17</td>
+    <td><a href="https://github.com/Lyken17/pytorch-OpCounter">thop</a></td>
+    <td><a href="https://github.com/Lyken17">Lyken17</a></td>
     <td>MIT</td>
   </tr>
   <tr  align="center">
