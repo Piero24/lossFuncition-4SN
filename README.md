@@ -161,7 +161,11 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 </p>
 
 ```sh
-torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0; 4.00 GiB total capacity; 3.36 GiB already allocated; 0 bytes free; 3.48 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0;
+4.00 GiB total capacity; 3.36 GiB already allocated; 0 bytes free; 3.48 GiB reserved
+in total by PyTorch) If reserved memory is >> allocated memory try setting
+max_split_size_mb to avoid fragmentation.See documentation for Memory Management
+and PYTORCH_CUDA_ALLOC_CONF
 ```
 <p>
     It means that you don't have enough memory on your GPU. For this reason a GPU with at least 8GB of memory is recommended. Alternatively you can test it on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/2560px-Google_Colaboratory_SVG_Logo.svg.png"  width="35" height="auto" align="center"> <strong>Google Colab</strong> from <a href="https://colab.research.google.com/drive/1TEcddIvATuULZxx9QQD3hXsm5ahs0iQv?usp=sharing"><strong>HERE</strong></a>.
