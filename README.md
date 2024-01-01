@@ -216,39 +216,6 @@ torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GP
 <br/>
 <br/>
 
-
-<h3 id="authors-and-copyright"><br/>✏️  Authors and Copyright</h3>
-<br/>
-<p>
-    👨🏽‍💻: <strong>Pietrobon Andrea</strong>
-    <br/>
-    🌐: <a href="https://www.pietrobonandrea.com">pietrobonandrea.com</a>
-    <br/>
-    <img src="https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c53e.png" width="30" height="30" align="center">:
-    <a href="https://twitter.com/pietrobonandrea">@PietrobonAndrea</a>
-    <br/>
-    🗄: <a href="https://github.com/Piero24/lossFuncition-4SN">HSNet+: Enhancing Polyp Segmentation with Region-wise Loss</a>
-</p>
-<br/>
-<p>
-    My name is <strong>Pietrobon Andrea</strong>, a computer engineering student at the 
-    <img src="https://upload.wikimedia.org/wikipedia/it/thumb/5/53/Logo_Università_Padova.svg/800px-Logo_Università_Padova.svg.png"  width="26" height="26" align="center"> 
-    University of Padua (🇮🇹).
-</p>
-<p>
-    My passion turns towards <strong>AI</strong> and <strong>ML</strong>.
-    I have learned and worked in different sectors that have allowed me to gain skills in different fields, such as IT and industrial design.
-    To find out more, visit my <a href="https://www.pietrobonandrea.com">
-    <strong>website »</strong></a>
-</p>
-<p>
-    <strong>The Copyright (C) of this project is held exclusively by my person.</strong>
-</p>
-
-
-<p align="right"><a href="#top">⇧</a></p>
-
-
 <h3 id="third-party-licenses"><br/>📌  Third Party Licenses</h3>
 
 In the event that the software uses third-party components for its operation, 
