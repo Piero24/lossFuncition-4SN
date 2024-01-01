@@ -15,9 +15,6 @@
     <a href="https://github.com/Piero24/lossFuncition-4SN/commits/master">
     <img src="https://img.shields.io/github/last-commit/piero24/lossFuncition-4SN">
     </a>
-    <a href="https://github.com/Piero24/lossFuncition-4SN">
-    <img src="https://img.shields.io/badge/Maintained-yes-green.svg">
-    </a>
     <a href="https://github.com/Piero24/twitch-stream-viewer/issues">
     <img src="https://img.shields.io/github/issues/piero24/lossFuncition-4SN">
     </a>
