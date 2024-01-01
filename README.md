@@ -46,18 +46,36 @@
 </p>
 <br/>
 <div class="image-row">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148.png?token=GHSAT0AAAAAACJ7YHTYCQZQAIXD7PVNLHWSZMTAUSA" alt="Image 1">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZIYHRUEWTT4QJKTV2ZMTAU2Q" alt="Image 2">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZBVAML3JEJ576OLACZMTAVEA" alt="Image 3">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148.png?token=GHSAT0AAAAAACJ7YHTZNSNPDVD7R2SY2YXCZMTGB2A" alt="Original Image">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZIYHRUEWTT4QJKTV2ZMTAU2Q" alt="True Mask">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZBVAML3JEJ576OLACZMTAVEA" alt="Output">
 </div>
 <div class="image-row">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Image 1">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-t.png?token=GHSAT0AAAAAACJ7YHTZ6KVQCWK4V3WLS6YEZMTAWAQ" alt="Image 2">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-p.png?token=GHSAT0AAAAAACJ7YHTZAE63SB2YLB2JSRCCZMTAWHQ" alt="Image 3">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Original Image">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-t.png?token=GHSAT0AAAAAACJ7YHTZ6KVQCWK4V3WLS6YEZMTAWAQ" alt="True Mask">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-p.png?token=GHSAT0AAAAAACJ7YHTZAE63SB2YLB2JSRCCZMTAWHQ" alt="Output">
 </div>
-<img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/50-plot.png?token=GHSAT0AAAAAACJ7YHTY6QRW477JJC7T4TLYZMTAWPQ" alt="Image 1">
+<img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/50-plot.png?token=GHSAT0AAAAAACJ7YHTY6QRW477JJC7T4TLYZMTAWPQ" alt="Plot of the Training">
 <br/>
 <br/>
+
+<table>
+  <tr  align="center">
+    <th><strong>Original Image</strong></th>
+    <th><strong>True Mask</strong></th> 
+    <th><strong>Output</strong></th> 
+  </tr>
+  <tr  align="center">
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148.png?token=GHSAT0AAAAAACJ7YHTZNSNPDVD7R2SY2YXCZMTGB2A" alt="Original Image"></th>
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZIYHRUEWTT4QJKTV2ZMTAU2Q" alt="True Mask"></th> 
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZBVAML3JEJ576OLACZMTAVEA" alt="Output"></th> 
+  </tr>
+  <tr  align="center">
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Original Image"></th>
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-t.png?token=GHSAT0AAAAAACJ7YHTZ6KVQCWK4V3WLS6YEZMTAWAQ" alt="True Mask"></th> 
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-p.png?token=GHSAT0AAAAAACJ7YHTZAE63SB2YLB2JSRCCZMTAWHQ" alt="Output"></th> 
+  </tr>
+</table>
 
 
 <h2 id="made-in"><br/>🛠  Built in</h2>
