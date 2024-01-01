@@ -45,20 +45,6 @@
     This research will show an innovative method useful in the segmentation of polyps during the screening phases of colonoscopies with the aim of concretely helping doctors in this task. To do this we have adopted a new approach which consists in <strong>merging the hybrid semantic network (HSNet) architecture model with the Reagion-wise(RW) as a loss function</strong> for the backpropagation process. In this way the bottleneck problems that arise in the systems currently used in this area are solved, since thanks to the HSNet it is possible to exploit the advantages of both the Transformers and the convolutional neural networks and thanks to the RW loss function its capacity is exploited to work efficiently with biomedical images. Since both the architecture and the loss function chosen by us have shown that they can achieve performances comparable to those of the state of the art working individually, in this research a dataset divided into 5 subsets will be used to demonstrate their effectiveness by using them together .
 </p>
 <br/>
-<div class="image-row">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148.png?token=GHSAT0AAAAAACJ7YHTZNSNPDVD7R2SY2YXCZMTGB2A" alt="Original Image">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZ6JAF4WO6XQVP3ONQZMTGG6Q" alt="True Mask">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZWWS52FKTUKEIZZGKZMTGHRA" alt="Output">
-</div>
-<div class="image-row">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Original Image">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-t.png?token=GHSAT0AAAAAACJ7YHTZ6KVQCWK4V3WLS6YEZMTAWAQ" alt="True Mask">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-p.png?token=GHSAT0AAAAAACJ7YHTZAE63SB2YLB2JSRCCZMTAWHQ" alt="Output">
-</div>
-<img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/50-plot.png?token=GHSAT0AAAAAACJ7YHTY6QRW477JJC7T4TLYZMTAWPQ" alt="Plot of the Training">
-<br/>
-<br/>
-
 <table>
   <tr  align="center">
     <th><strong>Original Image</strong></th>
@@ -71,13 +57,16 @@
     <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZWWS52FKTUKEIZZGKZMTGHRA" alt="Output"></th> 
   </tr>
   <tr  align="center">
-    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Original Image"></th>
-    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-t.png?token=GHSAT0AAAAAACJ7YHTZ6KVQCWK4V3WLS6YEZMTAWAQ" alt="True Mask"></th> 
-    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-p.png?token=GHSAT0AAAAAACJ7YHTZAE63SB2YLB2JSRCCZMTAWHQ" alt="Output"></th> 
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZIDKY5AIBP7GLMIJWZMTGI4A" alt="Original Image"></th>
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-t.png?token=GHSAT0AAAAAACJ7YHTZGHT22Q2H4TIQDJ6SZMTGJGQ" alt="True Mask"></th> 
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-p.png?token=GHSAT0AAAAAACJ7YHTYPK3WAJPOIRLRD4O2ZMTGJTA" alt="Output"></th> 
   </tr>
 </table>
-
-
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/50-plot.png?token=GHSAT0AAAAAACJ7YHTZJAVWRRH25MHRRT3OZMTGJ5A" alt="Plot of the Training">
+</div>
+<br/>
+<br/>
 <h2 id="made-in"><br/>🛠  Built in</h2>
 <p>
     This project was built using a variety of technologies like: <a href="https://www.python.org/downloads/release/python-390/"><strong>Python 3.9</strong></a>, renowned for its versatility and readability; <a href="https://pytorch.org"><strong>PyTorch</strong></a>, revered for its prowess in deep learning applications; <a href="https://opencv.org"><strong>OpenCV</strong></a>, an indispensable tool for computer vision tasks; <a href="https://numpy.org"><strong>Numpy</strong></a>, revered for its array computing capabilities; along with a plethora of other third party libraries like <a href="https://github.com/MIC-DKFZ/nnUNet#"><strong>nnUNet</strong></a>, that collectively contribute to the project's robustness and functionality. 
