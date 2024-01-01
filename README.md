@@ -205,14 +205,18 @@ torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GP
 <i>Version 3, 29 June 2007</i>
 <br/>
 <br/>
-<i>Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.</i>
+<i>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</i>
+<br/>
+<i>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</i>
 <br/>
 <br/>
-<i>Preamble</i>
-<br/>
-<i>The GNU General Public License is a free, copyleft license for software and other kinds of works.</i>
-<br/>
-<a href="https://github.com/Piero24/Template-README/blob/main/LICENSE"><strong>License Documentation »</strong></a>
+<a href="https://github.com/Piero24/lossFuncition-4SN/LICENSE"><strong>License Documentation »</strong></a>
 <br/>
 <br/>
 
