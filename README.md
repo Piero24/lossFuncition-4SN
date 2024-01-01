@@ -28,6 +28,10 @@
 <p align="center">
     Department of Engineering Information, University of Padua
     <br/>
+    <a href="https://github.com/Piero24">Pietrobon Andrea</a>
+    •
+    <a href="https://github.com/nicovii">Biffis Nicola</a>
+    <br/>
     <a href="https://github.com/Piero24/lossFuncition-4SN/blob/master/Pietrobon_Biffis.pdf"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
@@ -36,10 +40,15 @@
     <a href="https://github.com/Piero24/lossFuncition-4SN/issues">Report Bug</a>
 </p>
 
-
 ---
 
 <br/><br/>
+<h3 align="center">⚠️ <strong>IMPORTANT NOTE BEFORE START</strong> ⚠️</h3>
+<p align="center">
+    This project was tested on an <strong>NVIDIA GeForce GTX 1050 Ti</strong> with <strong>5GB</strong> of memory, as well as with the <strong>Google Colab</strong> free plan. Consequently, it had limited usage of a GPU. This allowed us to achieve the following results, which, unfortunately, in our opinion, are not entirely satisfactory. However, we are confident that with the use of a more powerful GPU, better results can be obtained. For this reason, we encourage anyone who wants to try using GPUs with significantly more memory available.
+</p>
+
+<br/>
 <h2 id="itroduction">📔  Itroduction</h2>
 <p>
     This research will show an innovative method useful in the segmentation of polyps during the screening phases of colonoscopies with the aim of concretely helping doctors in this task. To do this we have adopted a new approach which consists in <strong>merging the hybrid semantic network (HSNet) architecture model with the Reagion-wise(RW) as a loss function</strong> for the backpropagation process. In this way the bottleneck problems that arise in the systems currently used in this area are solved, since thanks to the HSNet it is possible to exploit the advantages of both the Transformers and the convolutional neural networks and thanks to the RW loss function its capacity is exploited to work efficiently with biomedical images. Since both the architecture and the loss function chosen by us have shown that they can achieve performances comparable to those of the state of the art working individually, in this research a dataset divided into 5 subsets will be used to demonstrate their effectiveness by using them together .
@@ -240,9 +249,7 @@ copies or substantial portions of the Software.</i>
 
 <h3 id="third-party-licenses"><br/>📌  Third Party Licenses</h3>
 
-In the event that the software uses third-party components for its operation, 
-<br/>
-the individual licenses are indicated in the following section.
+The individual licenses are indicated in the following section.
 <br/>
 <br/>
 <strong>Software list:</strong>
@@ -252,64 +259,41 @@ the individual licenses are indicated in the following section.
     <th>Software</th>
     <th>License owner</th> 
     <th>License type</th> 
-    <th>Link</th>
-    <th>Note</th>
   </tr>
   <tr  align="center">
-    <td>None</td>
-    <td></td> 
-    <td></td>
-    <td>https://github.com/baiboat/HSNet</td>
-    <td></td>
+    <td><a href="https://github.com/baiboat/HSNet">HSNet</a></td>
+    <td><a href="https://github.com/baiboat">baiboat</a></td> 
+    <td>*</td>
   </tr>
   <tr  align="center">
-    <td>None</td>
-    <td></td> 
-    <td></td>
-    <td>https://github.com/james128333/HarDNet-MSEG/blob/master/Test.py</td>
-    <td></td>
+    <td><a href="https://github.com/james128333/HarDNet-MSEG">HarDNet-MSEG</a></td>
+    <td><a href="https://github.com/james128333">james128333</a></td> 
+    <td>Apache-2.0</td>
   </tr>
   <tr  align="center">
-    <td>None</td>
-    <td></td> 
-    <td></td>
-    <td>https://github.com/DengPingFan/Polyp-PVT/blob/main/Test.py</td>
+    <td><a href="https://github.com/DengPingFan/Polyp-PVT">Polyp-PVT</a></td>
+    <td><a href="https://github.com/DengPingFan">DengPingFan</a></td>
+    <td>*</td>
+  </tr>
+  <tr  align="center">
+    <td><a href="https://arxiv.org/abs/2108.01405">Region-wise Loss for Biomedical Image Segmentation</a></td>
+    <td>Juan Miguel Valverde, Jussi Tohka</td>
     <td></td>
   </tr>
   <tr  align="center">
-    <td>None</td>
-    <td></td> 
-    <td></td>
-    <td>https://arxiv.org/abs/2108.01405</td>
-    <td></td>
+    <td><a href="https://github.com/huggingface/pytorch-image-models">pytorch-image-models</a></td>
+    <td><a href="https://github.com/huggingface">huggingface</a></td>
+    <td>Apache-2.0</td>
   </tr>
   <tr  align="center">
-    <td>None</td>
-    <td></td> 
-    <td></td>
-    <td>https://arxiv.org/abs/2108.01405</td>
-    <td></td>
+    <td><a href="https://github.com/Lyken17/pytorch-OpCounter"></a>thop</td>
+    <td><a href="https://github.com/Lyken17"></a>Lyken17</td>
+    <td>MIT</td>
   </tr>
   <tr  align="center">
-    <td>timm</td>
-    <td></td> 
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr  align="center">
-    <td>thop</td>
-    <td></td> 
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr  align="center">
-    <td>nnUNet</td>
-    <td></td> 
-    <td></td>
-    <td></td>
-    <td>https://github.com/MIC-DKFZ/nnUNet#</td>
+    <td><a href="https://github.com/MIC-DKFZ/nnUNet#">nnUNet</a></td>
+    <td><a href="https://github.com/MIC-DKFZ">MIC-DKFZ</a></td>
+    <td>Apache-2.0</td>
   </tr>
 </table>
 
