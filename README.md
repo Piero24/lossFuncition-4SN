@@ -47,8 +47,8 @@
 <br/>
 <div class="image-row">
     <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148.png?token=GHSAT0AAAAAACJ7YHTZNSNPDVD7R2SY2YXCZMTGB2A" alt="Original Image">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZIYHRUEWTT4QJKTV2ZMTAU2Q" alt="True Mask">
-    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZBVAML3JEJ576OLACZMTAVEA" alt="Output">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZ6JAF4WO6XQVP3ONQZMTGG6Q" alt="True Mask">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZWWS52FKTUKEIZZGKZMTGHRA" alt="Output">
 </div>
 <div class="image-row">
     <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Original Image">
@@ -67,8 +67,8 @@
   </tr>
   <tr  align="center">
     <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148.png?token=GHSAT0AAAAAACJ7YHTZNSNPDVD7R2SY2YXCZMTGB2A" alt="Original Image"></th>
-    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZIYHRUEWTT4QJKTV2ZMTAU2Q" alt="True Mask"></th> 
-    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZBVAML3JEJ576OLACZMTAVEA" alt="Output"></th> 
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZ6JAF4WO6XQVP3ONQZMTGG6Q" alt="True Mask"></th> 
+    <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZWWS52FKTUKEIZZGKZMTGHRA" alt="Output"></th> 
   </tr>
   <tr  align="center">
     <th><img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Original Image"></th>
