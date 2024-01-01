@@ -28,10 +28,10 @@
 <p align="center">
     Department of Engineering Information, University of Padua
     <br/>
-    <a href="#index"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Piero24/lossFuncition-4SN/blob/master/Pietrobon_Biffis.pdf"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://github.com/Piero24/lossFuncition-4SN">View Demo</a>
+    <a href="https://colab.research.google.com/drive/1TEcddIvATuULZxx9QQD3hXsm5ahs0iQv?usp=sharing">View Demo on Google Colab</a>
     •
     <a href="https://github.com/Piero24/lossFuncition-4SN/issues">Report Bug</a>
 </p>
@@ -45,7 +45,17 @@
     This research will show an innovative method useful in the segmentation of polyps during the screening phases of colonoscopies with the aim of concretely helping doctors in this task. To do this we have adopted a new approach which consists in <strong>merging the hybrid semantic network (HSNet) architecture model with the Reagion-wise(RW) as a loss function</strong> for the backpropagation process. In this way the bottleneck problems that arise in the systems currently used in this area are solved, since thanks to the HSNet it is possible to exploit the advantages of both the Transformers and the convolutional neural networks and thanks to the RW loss function its capacity is exploited to work efficiently with biomedical images. Since both the architecture and the loss function chosen by us have shown that they can achieve performances comparable to those of the state of the art working individually, in this research a dataset divided into 5 subsets will be used to demonstrate their effectiveness by using them together .
 </p>
 <br/>
-<img src="https://github.githubassets.com/images/modules/site/social-cards/github-social.png">
+<div class="image-row">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148.png?token=GHSAT0AAAAAACJ7YHTYCQZQAIXD7PVNLHWSZMTAUSA" alt="Image 1">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-t.png?token=GHSAT0AAAAAACJ7YHTZIYHRUEWTT4QJKTV2ZMTAU2Q" alt="Image 2">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/148-p.png?token=GHSAT0AAAAAACJ7YHTZBVAML3JEJ576OLACZMTAVEA" alt="Image 3">
+</div>
+<div class="image-row">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165.png?token=GHSAT0AAAAAACJ7YHTZRE5B45MOTE64CISMZMTAVXA" alt="Image 1">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-t.png?token=GHSAT0AAAAAACJ7YHTZ6KVQCWK4V3WLS6YEZMTAWAQ" alt="Image 2">
+    <img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/165-p.png?token=GHSAT0AAAAAACJ7YHTZAE63SB2YLB2JSRCCZMTAWHQ" alt="Image 3">
+</div>
+<img src="https://raw.githubusercontent.com/Piero24/lossFuncition-4SN/master/LaTeX/Figures/50-plot.png?token=GHSAT0AAAAAACJ7YHTY6QRW477JJC7T4TLYZMTAWPQ" alt="Image 1">
 <br/>
 <br/>
 
@@ -97,7 +107,7 @@
     In this study, we examine how the implementation of regional loss (RW) affects polyp segmentation by applying it to a hybrid semantic network (HSNet).
 </p>
 <p>
-    Read the paper for a more detailed explanation: <a href="https://shields.io/">Documentation »</a>
+    Read the paper for a more detailed explanation: <a href="https://github.com/Piero24/lossFuncition-4SN/blob/master/Pietrobon_Biffis.pdf">Documentation »</a>
 </p>
 
 
@@ -138,7 +148,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0; 4.00 GiB total capacity; 3.36 GiB already allocated; 0 bytes free; 3.48 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
 ```
 <p>
-    It means that you don't have enough memory on your GPU. For this reason a GPU with at least 8GB of memory is recommended. Alternatively you can test it on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/2560px-Google_Colaboratory_SVG_Logo.svg.png"  width="35" height="auto" align="center"> <strong>Google Colab</strong> from <a href="https://drive.google.com/file/d/1pFxb9NbM8mj_rlSawTlcXG1OdVGAbRQC/view?usp=sharing"><strong>HERE</strong></a>.
+    It means that you don't have enough memory on your GPU. For this reason a GPU with at least 8GB of memory is recommended. Alternatively you can test it on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/2560px-Google_Colaboratory_SVG_Logo.svg.png"  width="35" height="auto" align="center"> <strong>Google Colab</strong> from <a href="https://colab.research.google.com/drive/1TEcddIvATuULZxx9QQD3hXsm5ahs0iQv?usp=sharing"><strong>HERE</strong></a>.
 </p>  
 <br/>
 
@@ -191,7 +201,7 @@ torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GP
     It is possible to have more information by viewing the following links: 
     <a href="#code-of-conduct"><strong>Code of conduct</strong></a>
      • 
-    <a href="#license"><strong>License</strong></a>
+    <a href="https://github.com/Piero24/lossFuncition-4SN/blob/master/LICENSE"><strong>License</strong></a>
 </p>
 
 <p align="right"><a href="#top">⇧</a></p>
@@ -200,9 +210,9 @@ torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GP
 --- 
 
 <h2 id="license"><br/>🔍  License</h2>
-<strong>GNU GENERAL PUBLIC LICENSE</strong>
+<strong>MIT License</strong>
 <br/>
-<i>Version 3, 29 June 2007</i>
+<i>Copyright (c) 2023 Andrea Pietrobon</i>
 <br/>
 <br/>
 <i>Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -211,6 +221,7 @@ in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:</i>
+<br/>
 <br/>
 <i>The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.</i>
@@ -241,8 +252,57 @@ the individual licenses are indicated in the following section.
     <td>None</td>
     <td></td> 
     <td></td>
+    <td>https://github.com/baiboat/HSNet</td>
+    <td></td>
+  </tr>
+  <tr  align="center">
+    <td>None</td>
+    <td></td> 
+    <td></td>
+    <td>https://github.com/james128333/HarDNet-MSEG/blob/master/Test.py</td>
+    <td></td>
+  </tr>
+  <tr  align="center">
+    <td>None</td>
+    <td></td> 
+    <td></td>
+    <td>https://github.com/DengPingFan/Polyp-PVT/blob/main/Test.py</td>
+    <td></td>
+  </tr>
+  <tr  align="center">
+    <td>None</td>
+    <td></td> 
+    <td></td>
+    <td>https://arxiv.org/abs/2108.01405</td>
+    <td></td>
+  </tr>
+  <tr  align="center">
+    <td>None</td>
+    <td></td> 
+    <td></td>
+    <td>https://arxiv.org/abs/2108.01405</td>
+    <td></td>
+  </tr>
+  <tr  align="center">
+    <td>timm</td>
+    <td></td> 
     <td></td>
     <td></td>
+    <td></td>
+  </tr>
+  <tr  align="center">
+    <td>thop</td>
+    <td></td> 
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr  align="center">
+    <td>nnUNet</td>
+    <td></td> 
+    <td></td>
+    <td></td>
+    <td>https://github.com/MIC-DKFZ/nnUNet#</td>
   </tr>
 </table>
 
