@@ -42,7 +42,7 @@
 <br/><br/>
 <h3 align="center">⚠️ <strong>IMPORTANT NOTE BEFORE START</strong> ⚠️</h3>
 <p align="center">
-    This project was tested on an <strong>NVIDIA GeForce GTX 1050 Ti</strong> with <strong>5GB</strong> of memory, as well as with the <strong>Google Colab</strong> free plan. Consequently, it had limited usage of a GPU. This allowed us to achieve the following results, which, unfortunately, in our opinion, are not entirely satisfactory. However, we are confident that with the use of a more powerful GPU, better results can be obtained. For this reason, we encourage anyone who wants to try using GPUs with significantly more memory available.
+    This project was tested on an <strong>NVIDIA GeForce GTX 1050 Ti</strong> with <strong>4GB</strong> of memory, as well as with the <strong>Google Colab</strong> free plan. Consequently, it had limited usage of a GPU. This allowed us to achieve the following results, which, unfortunately, in our opinion, are not entirely satisfactory. However, we are confident that with the use of a more powerful GPU, better results can be obtained. For this reason, we encourage anyone who wants to try using GPUs with significantly more memory available.
 </p>
 
 <br/>
