@@ -46,7 +46,7 @@
 </p>
 
 <br/>
-<h2 id="itroduction">📔  Itroduction</h2>
+<h2 id="itroduction">📔  Introduction</h2>
 <p>
     This research will show an innovative method useful in the segmentation of polyps during the screening phases of colonoscopies with the aim of concretely helping doctors in this task. To do this we have adopted a new approach which consists in <strong>merging the hybrid semantic network (HSNet) architecture model with the Reagion-wise(RW) as a loss function</strong> for the backpropagation process. In this way the bottleneck problems that arise in the systems currently used in this area are solved, since thanks to the HSNet it is possible to exploit the advantages of both the Transformers and the convolutional neural networks and thanks to the RW loss function its capacity is exploited to work efficiently with biomedical images. Since both the architecture and the loss function chosen by us have shown that they can achieve performances comparable to those of the state of the art working individually, in this research a dataset divided into 5 subsets will be used to demonstrate their effectiveness by using them together .
 </p>
